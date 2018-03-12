@@ -4,7 +4,7 @@ from selenium.common.exceptions import NoSuchElementException
 options = webdriver.ChromeOptions()
 prefs = {"profile.default_content_setting_values.notifications" : 2}
 options.add_experimental_option('prefs', prefs)
-driver = webdriver.Chrome('/Users/eddyyeung/Documents/chromedriver', options=options)
+driver = webdriver.Chrome('/chromedriver', options=options) #locate the webdriver in your file directory
 username = "" #enter your FB email
 password = "" #enter your FB password
 
