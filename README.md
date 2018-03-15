@@ -1,4 +1,4 @@
 # Tinder-Auto-Swiper
-A python script that automatically logins and swipes right for you on Tinder using Selenium
+A python script that automatically logins into the merchant's 3dcart online admin panel and configures all of the settings for you using Selenium.
 
-All you need to do is change the username and password variables at the top and put the file path to the Chrome web dirver in you file directory.
+
