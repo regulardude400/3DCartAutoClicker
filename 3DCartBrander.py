@@ -1,6 +1,6 @@
 import sys, re, os, importlib, win32com.client as win32
 from gui3DCart import Ui_MainWindow
-from PyQt5 import QtWidgets, uic, QtCore
+from PyQt5 import QtWidgets, uic
 
 class Ui(QtWidgets.QMainWindow):
     def __init__(self):
@@ -29,13 +29,13 @@ class Ui(QtWidgets.QMainWindow):
         self.actionAbout.triggered.connect(self.aboutProgram) #Open About in Menu
         
     def aboutProgram(self):
-        infoAbout = QtWidgets.QMessageBox() ##Message Box that doesn't run
-        infoAbout.setIcon(QtWidgets.QMessageBox.Information)
-        infoAbout.setWindowTitle("About 3DCart Brander v1.0")
+        infoAbout = QtWidgets.QMessageBox() #Create the MessageBox Window.
+        infoAbout.setIcon(QtWidgets.QMessageBox.Information) #Set the icon.
+        infoAbout.setWindowTitle("About 3DCart Brander v1.0") #Set the title.
         infoAbout.setInformativeText("This program was created by Alvin Williams."
                                      "If you need help or troubleshooting please report"
                                      "the issues to me in person, via email alvin.williams1992@yahoo.com"
-                                     "or via github using the issue tracker located here:\nhttps://github.com/regulardude400/3DCartBrander/issues")
+                                     "or via github using the issue tracker located here: https://github.com/regulardude400/3DCartBrander/issues") #Set the text
         infoAbout.exec()
         
     def quitProgram(self):
@@ -114,58 +114,8 @@ class Ui(QtWidgets.QMainWindow):
         outlook = win32.Dispatch('outlook.application') #Open Outlook
         mail = outlook.CreateItem(0) #Create an email.
         mail.To = self.Gemail #Send to Merchant's email that we have parsed.
-        mail.Subject = "Welcome to goEmerchant!" #Subject of email.
-        text = """Greetings!
-
-We have initiated your iteration of the Premium cart and following are the login credentials.  There is a migration process we’ll coordinate with you before your new Premium cart will be introduced to your customers.  In the interim your existing Total Package or Buy-Me Buttons will continue to provide the sales on your e-commerce site(s).  
-
-You’ll enjoy the Premium cart benefits which include a responsive design which makes it easy for your customers to purchase on a mobile device, and many contemporary advanced e-commerce features and capabilities.  
-
-The main phases of the migration process we’ll perform are: 
-•         Initiate the Premium cart
-•         Transfer any Total Package images
-•         Transfer any Total Package departments (categories)
-•         Transfer Total Package products
-•         Forward the Buy-Me Buttons to the new platform
-
-The migration will require some effort on your part to verify all data transferred and: 
-•         Configure sales tax, shipping methods, email and other settings
-•         Total Package merchants using the full e-commerce site will need to select a template and design their layout
-•         Perform test transactions to validate the checkout process and order notifications 
- 
-Please note the final migration will be coordinated with you and will not occur without your knowledge and consent.    
-
-Your loyalty as a respected long term merchant is very much appreciated.  
-
-Your new shopping cart has been set up!  You will need to log into your GoEmerchant Transaction Center to set up your payment gateway and accept payments through your 3dCart store.
-
-Transaction Center Login Information:
-
-Transaction Center ID: """ + self.Gtransid + """Username: """ + self.Gusername + """Password: [Refer to your activation email or call 888-711-3800 opt tech support]
-
-To log into your Transaction Center, go to this link: https://secure.goemerchant.com/secure/login/tc/login.aspx Enter your login credentials, and click Login.  For full instructions on logging into your Transaction Center, please see this support article: http://support.goemerchant.com/transaction-center.aspx?article=account-setup 
-
-Once logged into your Transaction Center, go to the Security Settings Tab and Select Gateway Options.  You will need to enter your Transaction Center ID, Processor ID, and Gateway ID in your Online Payment Options in the store, so keep this page open.
-
-To log into your 3dCart store, go to:\n""" + self.Gcontrolp + """Username: """ + self.Gusernamep + """Password: """ + self.Gpasswordp + """
-FTP Information (Only necessary for making template changes):
-Server/Host: """ + self.Ghostftp + """\nUsername: """ + self.Gloginftp + """\nPassword: """ + self.Gpassftp + """\nUpon first login to your store, you will be presented with a Setup Tutorial.  You may follow the steps outlined in the tutorial, or in this setup article to set up your cart: http://support.goemerchant.com/shopping-cart-software.aspx?article=shopping-cart-setup-guide 
-
-From the Store Manager in Settings > Payment > Online Methods, you will need to enter your Transaction Center ID, Gateway ID and Processor ID to accept credit cards.  Details on this step can be found here: http://support.goemerchant.com/shopping-cart-software.aspx?article=shopping-cart-setup-guide#online-payment-methods 
-
-If you are using a custom URL, you will need to configure an A Record in your domain name’s DNS settings.  Instructions on how to do so can be found here:
-http://support.goemerchant.com/shopping-cart-software.aspx?article=setting-up-custom-url 
-
-If you need any assistance, please contact Support at (888) 711-3800, or by email at support@goemerchant.com.  
-
-Thank you,
-Alvin
-
-GoEmerchant Tech Support
-support@goemerchant.com
-Phone: 888-711-3800 Opt 3
-Fax: 866-926-4499
-"""
+        mail.Subject = "" #Subject of email.
+        text = ""
         mail.Body = text #Set body to the text above.
         if mail.Display(False): #Open the email that we want to compose to outlook.
            mail.Display(True)
@@ -173,14 +123,15 @@ Fax: 866-926-4499
     def sendftp(self):
         #This method is for writing the script that will be read by winscp.
         #At the end we will invoke the program with cmd and tell winscp to read
-        #the script that we create in this method.
-        
+        #the script that we have created in this method.
+        print(self.Ghostftp)
+    
         text2write = "open \"ftps://" + self.Gloginftp + ':' + self.Gpassftp +'@'+ self.Ghostftp + '\"\n'
-        text2write += 'cd /keys\n'
-        text2write += 'put "F:\Company Shared Folders\Tech Support\\3dCart Branding\gw_ids.txt"\n'
-        text2write += 'put "F:\Company Shared Folders\Tech Support\\3dCart Branding\gw_ids1.txt"\n'
-        text2write += 'cd ../web/assets\n'
-        text2write += 'put "F:\Company Shared Folders\Tech Support\\3dCart Branding\\brandv7"\n'
+        text2write += 'cd /keys\n' 
+        text2write += 'put "c:path\to\file\gw_ids.txt"\n' #change to valid path
+        text2write += 'put "c:path\to\file\gw_ids1.txt"\n' #change to valid path
+        text2write += 'cd ../web/assets\n' #change to valid path
+        text2write += 'put "c:\path\to\3dCart Branding\\brandv7"\n' #change to valid path
         text2write += "exit"
         
         with open("scpScript.txt", 'w') as scpfile:
